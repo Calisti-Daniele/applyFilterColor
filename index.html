@@ -27,7 +27,7 @@
         var sliders = ['red', 'green', 'blue'];
         sliders.forEach(function (attr) {
           var slider = document.getElementById(attr);
-          document.getElementyId(slider+"Label").innerText = "Rosso - " + slider.value;
+          document.getElementById(slider+"Label").innerText = "Rosso - " + slider.value;
           function update() {
             lion[attr](parseFloat(slider.value));
           }
@@ -41,15 +41,15 @@
   <body>
     <div>
       <input type="range" id="red" name="red" min="0" max="255" value="0" onchange="updateColor()">
-      <label for="red" id="redLabel"></label>
+      <label for="red" id="redLabel">Rosso - 0</label>
     </div>
     <div>
       <input type="range" id="green" name="green" min="0" max="255" value="0" onchange="updateColor()">
-      <label for="green" id="greenLabel">Verde</label>
+      <label for="green" id="greenLabel">Verde - 0</label>
     </div>
     <div>
       <input type="range" id="blue" name="blue" min="0" max="255" value="0" onchange="updateColor()">
-      <label for="blue" id="blueLabel">Blu</label>
+      <label for="blue" id="blueLabel">Blu - 0</label>
     </div>
     <div>
       <div id="container"></div>
