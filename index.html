@@ -27,7 +27,7 @@
         var sliders = ['red', 'green', 'blue'];
         sliders.forEach(function (attr) {
           var slider = document.getElementById(attr);
-          document.getElementById(attr+"Label").innerText = attr + " - " + slider.value;
+          document.getElementById(attr+"Label").innerText = (attr == 'red' ? "Rosso" : attr == 'green' ? "Verde" : "Blu") + " - " + slider.value;
           function update() {
             lion[attr](parseFloat(slider.value));
           }
