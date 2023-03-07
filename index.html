@@ -1,114 +1,33 @@
+<!DOCTYPE html>
 <html>
   <head>
-  <script type="text/javascript">
-  function createCanvas(image){
-
-    // create a new canvas element
-    var myCanvas = document.createElement("canvas");
-    var myCanvasContext = myCanvas.getContext("2d");
-
-
-    var imgWidth=image.width;
-    var imgHeight=image.height;
-
-    // set the width and height to the same as the image
-    myCanvas.width= imgWidth;
-    myCanvas.height = imgHeight;
-
-    // draw the image
-    myCanvasContext.drawImage(image,0,0);
-
-    // get all the image data into an array
-    var imageData = myCanvasContext.getImageData(0,0, imgWidth, imgHeight);
-
-
-    // go through it all...
-    for (j=0; j<imageData.width; j++)
-    {
-      for (i=0; i<imageData.height; i++)
-      {
-         // index: red, green, blue, alpha, red, green, blue, alpha..etc.
-         var index=(i*4)*imageData.width+(j*4);
-         var red=imageData.data[index];
-         var alpha=imageData.data[index+3];
-
-         // set the red to the same
-         imageData.data[index]=red;
-
-         // set the rest to black
-         imageData.data[index+1]=0;
-         imageData.data[index+2]=0;
-         imageData.data[index+3]=alpha;
-         delete c;
-       }
-     }
-
-     // put the image data back into the canvas
-     myCanvasContext.putImageData(imageData,0,0,0,0, imageData.width,   imageData.height);
-
-    // append it to the body
-    document.body.appendChild(myCanvas);
-  }
-  function loadImage(){
-    var img = new Image();
-    img.onload = function (){
-      createCanvas(img);
-    }
-    img.src = "prova.png";
-  }
-    
-  function printColorRed(ev) {
-    document.getElement("canvas");
-    const ctx = canvas.getContext("2d");
-    
-    const color = ev.target.value
-    const r = parseInt(color.substr(1,2), 16)
-    
-    var imageData = ctx.getImageData(0,0, imgWidth, imgHeight);
-
-
-    // go through it all...
-    for (j=0; j<imageData.width; j++)
-    {
-      for (i=0; i<imageData.height; i++)
-      {
-         // index: red, green, blue, alpha, red, green, blue, alpha..etc.
-         var index=(i*4)*imageData.width+(j*4);
-         var red=imageData.data[index];
-         var alpha=imageData.data[index+3];
-
-         // set the red to the same
-         imageData.data[index]=r;
-
-         // set the rest to black
-         imageData.data[index+1]=0;
-         imageData.data[index+2]=0;
-         imageData.data[index+3]=alpha;
-         delete c;
-       }
-     }
-
-     // put the image data back into the canvas
-     myCanvasContext.putImageData(imageData,0,0,0,0, imageData.width,   imageData.height);
-  }
-    
-  function printColorGreen(ev) {
-    const color = ev.target.value
-    const g = parseInt(color.substr(3,2), 16)
-  }
-    
-  function printColorBlue(ev) {
-    const color = ev.target.value
-    const b = parseInt(color.substr(5,2), 16)
-  }
-  </script>
+    <title>Selettore di colore</title>
+    <meta charset="UTF-8">
+    <script type="text/javascript">
+      function updateColor() {
+        var red = document.getElementById("red").value;
+        var green = document.getElementById("green").value;
+        var blue = document.getElementById("blue").value;
+        var color = "rgb(" + red + "," + green + "," + blue + ")";
+        document.getElementById("image").style.filter = "sepia(50%) saturate(200%) hue-rotate(30deg) brightness(80%) contrast(90%) drop-shadow(2px 2px 2px " + color + ")";
+      }
+    </script>
   </head>
-  <body onload="loadImage()">
-
-    <input type="color" onchange="printColorRed(event)" value="#ff0000">
-    <input type="color" onchange="printColorGreen(event)" value="#00ff00">
-    <input type="color" onchange="printColorBlue(event)" value="#0000ff">
-    
-    <img src="prova.png" />
+  <body>
+    <div>
+      <input type="range" id="red" name="red" min="0" max="255" value="0" onchange="updateColor()">
+      <label for="red">Rosso</label>
+    </div>
+    <div>
+      <input type="range" id="green" name="green" min="0" max="255" value="0" onchange="updateColor()">
+      <label for="green">Verde</label>
+    </div>
+    <div>
+      <input type="range" id="blue" name="blue" min="0" max="255" value="0" onchange="updateColor()">
+      <label for="blue">Blu</label>
+    </div>
+    <div>
+      <img id="image" src="https://www.w3schools.com/w3images/fjords.jpg" width="500">
+    </div>
   </body>
-  </html>
+</html>
