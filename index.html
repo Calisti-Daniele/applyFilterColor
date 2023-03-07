@@ -1,15 +1,39 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="https://unpkg.com/konva@8.4.2/konva.min.js"></script>
     <title>Selettore di colore</title>
     <meta charset="UTF-8">
     <script type="text/javascript">
       function updateColor() {
-        var red = document.getElementById("red").value;
-        var green = document.getElementById("green").value;
-        var blue = document.getElementById("blue").value;
-        var color = "rgb(" + red + "," + green + "," + blue + ")";
-        document.getElementById("image").style.backgroundColor = color;
+        Konva.Image.fromURL('https://www.w3schools.com/w3images/fjords.jpg', function (lion) {
+        var stage = new Konva.Stage({
+          container: 'container',
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+
+        var layer = new Konva.Layer();
+
+        lion.position({
+          x: 50,
+          y: 50,
+        });
+        lion.cache();
+        lion.filters([Konva.Filters.RGB]);
+        layer.add(lion);
+        stage.add(layer);
+
+        var sliders = ['red', 'green', 'blue'];
+        sliders.forEach(function (attr) {
+          var slider = document.getElementById(attr);
+          function update() {
+            lion[attr](parseFloat(slider.value));
+          }
+          slider.oninput = update;
+          update();
+        });
+      });
       }
     </script>
   </head>
