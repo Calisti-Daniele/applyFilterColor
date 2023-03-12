@@ -1,0 +1,36 @@
+<html>
+   <h1>Color Picker</h1>
+    <p>Fai clic sull'immagine blu per selezionare il suo colore:</p>
+    <img id="blueImage" src="prova.png">
+  <p id="text"></p>
+  <script>
+    const blueImage = document.getElementById("blueImage");
+
+    blueImage.addEventListener("click", function(event) {
+      const x = event.offsetX;
+      const y = event.offsetY;
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+      const image = new Image();
+      image.src = this.src;
+      image.onload = function() {
+        canvas.width = this.width;
+        canvas.height = this.height;
+        context.drawImage(this, 0, 0);
+        const pixelData = context.getImageData(x, y, 1, 1).data;
+        const selectedColor = rgbToHex(pixelData[0], pixelData[1], pixelData[2]);
+        document.getElementById('text').innerText = selectedColor;
+      }
+    });
+
+    function rgbToHex(r, g, b) {
+      return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    }
+
+    function componentToHex(c) {
+      const hex = c.toString(16);
+      return hex.length == 1 ? "0" + hex : hex;
+    }
+
+  </script>
+</html>
